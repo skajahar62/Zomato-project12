@@ -1372,3 +1372,42 @@ function getrestaurant(restaurants){
 }
 
 getrestaurant(restaurants);
+
+
+document.getElementById("Alcohol").addEventListener('click',()=>{
+  const result=  restaurants.filter((obj)=>obj.alcohol);
+  document.getElementById('root').replaceChildren();
+  getrestaurant(result)
+})
+
+document.getElementById("Rating").addEventListener('click',()=>{
+  const result=  restaurants.filter((obj)=>obj.rating>4.5);
+  document.getElementById('root').replaceChildren();
+  getrestaurant(result)
+})
+
+document.getElementById('Filters').addEventListener('click',()=>{
+    document.getElementById("filterPopup").classList.remove("hidden");
+})
+
+document.getElementById('applyFilter').addEventListener('click',()=>{
+    const element=document.querySelector('input[name="filterOption"]:checked');
+   const answer= element.value;
+
+   if (answer==='rating'){
+    restaurants.sort((a,b)=>b.rating-a.rating);
+   }
+   else if(answer==="highLow"){
+    restaurants.sort((a,b)=>b.price_for_two-a.price_for_two);
+   }
+   else if(answer==="costLowHigh"){
+    restaurants.sort((a,b)=>a.price_for_two-b.price_for_two);
+   }
+   else if(answer==="distance"){
+    restaurants.sort((a,b)=>a.distance_from_Customer_house-b.distance_from_Customer_house);
+   }
+
+   document.getElementById('root').replaceChildren();
+   document.getElementById("filterPopup").classList.add("hidden");
+   getrestaurant(restaurants);
+})
